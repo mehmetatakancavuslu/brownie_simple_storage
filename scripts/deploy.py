@@ -7,7 +7,13 @@ def deploy_simple_storage():
     simple_storage = SimpleStorage.deploy({"from": account})
     # Real test account with brownie encrypted
     # account = accounts.load("test-account")
-    print(simple_storage)
+    stored_value = simple_storage.retrieve()
+    print(stored_value)
+    transaction = simple_storage.store(15, {"from": account})
+    # Wait for transaction to confirm
+    transaction.wait(1)
+    updated_stored_value = simple_storage.retrieve()
+    print(updated_stored_value)
 
 
 def main():
